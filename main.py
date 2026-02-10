@@ -47,7 +47,12 @@ def add_words(words):
 
 
 def show_all_words(words):
-    ...
+    if not words:
+        print("")
+        return
+    pairs = [f"{word} - {translation}" for word, translation in words.items()]
+    output = "; ".join(pairs)
+    print(output)
 
 
 def save_words(words, filename):
@@ -57,16 +62,30 @@ def save_words(words, filename):
 def main():
     words = load_words('words.txt')
     print(f"Было загружено {len(words)} слов из файла words.txt")
-    # while True:
-    #     menu = '''Меню:
-    #     1. Начать игру
-    #     2. Добавить слова
-    #     3. Тренировка до первой ошибки
-    #     4. Вывод всех слов
-    #     5. Выход
-    #     '''
-    #     print(menu)
-    #     menu_choice = input('Пункт меню: ')
+    while True:
+        menu = '''Меню:
+        1. Начать игру
+        2. Добавить слова
+        3. Тренировка до первой ошибки
+        4. Вывод всех слов
+        5. Выход
+        '''
+        print(menu)
+        menu_choice = input('Пункт меню: ')
+
+        if menu_choice == '1':
+            start_game(words)
+        elif menu_choice == '2':
+            add_words(words)
+        elif menu_choice == '3':
+            train_until_mistake(words)
+        elif menu_choice == '4':
+            show_all_words(words)
+        elif menu_choice == '5':
+            # save_words(words, 'words.txt')
+            break
+        else:
+            print("Неверный выбор. Попробуйте снова.")
 
 
 if __name__ == '__main__':
