@@ -51,11 +51,13 @@ def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:
     start_time = time.time()
     translation = input("Ваш перевод: ").strip()
     end_time = time.time()
-    response_time = end_time - start_time
+    answer_time = end_time - start_time
+
     if translation.upper() == STOP_WORD.upper():
         return True, False, 0.0
-    is_correct = translation.lower() == correct.lower()
-    return False, is_correct, response_time
+
+    is_correct = translation.strip().lower() == correct.strip().lower()
+    return False, is_correct, answer_time
 
 
 def start_game(words: Dict[str, str]) -> None:
