@@ -1,6 +1,5 @@
 import random
 import sys
-import os
 import time
 from typing import Dict, Tuple
 
@@ -17,8 +16,10 @@ def load_words(filename: str) -> Dict[str, str]:
         with open(filename, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
-                if ' - ' in line:
-                    parts = line.split(' - ', 1)
+                if not line:
+                    continue
+                if ',' in line:
+                    parts = line.split(',', 1)
                     if len(parts) == 2:
                         word, translation = parts
                         words[word.strip()] = translation.strip()
@@ -145,7 +146,7 @@ def save_words(words: Dict[str, str], filename: str) -> None:
     """
     with open(filename, 'w', encoding='utf-8') as f:
         for word, translation in words.items():
-            f.write(f"{word} - {translation}\n")
+            f.write(f"{word},{translation}\n")
     print(f"Было сохранено {len(words)} слов в файл {filename}")
 
 
@@ -154,8 +155,7 @@ def main() -> None:
     Основной цикл программы: загружает словарь, отображает меню и обрабатывает
     выбор пользователя.
     """
-    filename = os.path.join(os.path.dirname(__file__), 'words.txt')
-    words = load_words(filename)
+    words = load_words('words.txt')
     print(f"Было загружено {len(words)} слов из файла words.txt")
 
     while True:
