@@ -8,7 +8,21 @@ from typing import Dict, Tuple
 STOP_WORD = 'СТОП'
 
 
-def load_words(filename):
+def load_words(filename: str) -> Dict[str, str]:
+
+    """
+    Загружает пары «слово, перевод» из текстового файла и формирует словарь.
+    
+    Args:
+        filename (str): Имя файла для загрузки данных.
+    
+    Returns:
+        Dict[str, str]: Словарь с парами слово-перевод.
+    
+    Raises:
+        SystemExit: Если файл не найден, программа завершается с кодом 1.
+    """
+
     words = {}
     try:
         with open(filename, 'r', encoding='utf-8') as f:
@@ -26,7 +40,16 @@ def load_words(filename):
     
 
 
-def print_statistics(score, total_time):
+def print_statistics(score: int, total_time: float) -> None:
+
+    """
+    Выводит итоговую статистику игры: счёт, общее время и среднее время на ответ.
+    
+    Args:
+        score (int): Количество правильных ответов.
+        total_time (float): Общее время игры в секундах.
+    """
+
     if score == 0:
         average = "—"
     else:
@@ -35,7 +58,19 @@ def print_statistics(score, total_time):
     print(f"Время игры: {total_time:.2f} секунд (среднее время: {average} сек.)")
 
 
-def ask_and_check(word, correct):
+def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:
+
+    """
+    Запрашивает у пользователя перевод слова, проверяет его и возвращает результаты.
+    
+    Args:
+        word (str): Слово для перевода.
+        correct (str): Правильный перевод.
+    
+    Returns:
+        Tuple[bool, bool, float]: (флаг выхода, флаг правильности, время ответа).
+    """
+
     print(f"Ваше слово: {word}")
     start_time = time.time()
     translation = input("Ваш перевод: ").strip()
@@ -47,7 +82,15 @@ def ask_and_check(word, correct):
     return False, is_correct, response_time
 
 
-def start_game(words):
+def start_game(words: Dict[str, str]) -> None:
+
+    """
+    Запускает обычный игровой режим тренировки слов.
+    
+    Args:
+        words (Dict[str, str]): Словарь с парами слово-перевод.
+    """
+
     if not words:
         print("Словарь пуст. Добавьте слова перед началом игры.")
         return
@@ -69,7 +112,15 @@ def start_game(words):
     print_statistics(score, total_time)
 
 
-def train_until_mistake(words):
+def train_until_mistake(words: Dict[str, str]) -> None:
+
+    """
+    Запускает режим тренировки «до первой ошибки».
+    
+    Args:
+        words (Dict[str, str]): Словарь с парами слово-перевод.
+    """
+
     if not words:
         print("Словарь пуст. Добавьте слова перед началом игры.")
         return
@@ -93,7 +144,15 @@ def train_until_mistake(words):
     print_statistics(score, total_time)
 
 
-def add_words(words):
+def add_words(words: Dict[str, str]) -> None:
+
+    """
+    Добавляет новые пары слово-перевод в словарь в интерактивном режиме.
+    
+    Args:
+        words (Dict[str, str]): Словарь для добавления пар (изменяется по месту).
+    """
+
     print("Чтобы закончить, введите СТОП")
     while True:
         word = input("Введите слово: ").strip()
@@ -105,7 +164,15 @@ def add_words(words):
         words[word] = translation
 
 
-def show_all_words(words):
+def show_all_words(words: Dict[str, str]) -> None:
+
+    """
+    Выводит все пары слово-перевод из словаря в одну строку.
+    
+    Args:
+        words (Dict[str, str]): Словарь с парами слово-перевод.
+    """
+     
     if not words:
         print("")
         return
@@ -114,17 +181,32 @@ def show_all_words(words):
     print(output)
 
 
-def save_words(words, filename):
+def save_words(words: Dict[str, str], filename: str) -> None:
+
+    """
+    Сохраняет словарь в файл и выводит сообщение о сохранении.
+    
+    Args:
+        words (Dict[str, str]): Словарь для сохранения.
+        filename (str): Имя файла для сохранения.
+    """
+
     with open(filename, 'w', encoding='utf-8') as f:
         for word, translation in words.items():
             f.write(f"{word} - {translation}\n")
     print(f"Было сохранено {len(words)} слов в файл {filename}")
 
 
-def main():
+def main() -> None:
+    
+    """
+    Основной цикл программы: загружает словарь, отображает меню и обрабатывает выбор пользователя.
+    """
+
     filename = os.path.join(os.path.dirname(__file__), 'words.txt')
     words = load_words(filename)
     print(f"Было загружено {len(words)} слов из файла words.txt")
+    
     while True:
         menu = '''Меню:
         1. Начать игру
