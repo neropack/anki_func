@@ -7,7 +7,7 @@ from typing import Dict, Tuple
 STOP_WORD = 'СТОП'
 
 
-def load_words(filename: str) -> Dict[str, str]:
+def load_words(filename: str = "words.txt") -> Dict[str, str]:
     """
     Загружает пары «слово, перевод» из текстового файла и формирует словарь.
     """
@@ -169,7 +169,7 @@ def main() -> None:
     Основной цикл программы: загружает словарь, отображает меню и обрабатывает
     выбор пользователя.
     """
-    words = load_words('words.txt')
+    words = load_words()
     print(f"Было загружено {len(words)} слов из файла words.txt")
 
     while True:
