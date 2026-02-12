@@ -48,8 +48,9 @@ def print_statistics(score: int, total_time: float) -> None:
 
     score_str = str(score) if score > 0 else "—"
 
-    print(f"Ваш итоговый счёт: {score_str}")
-    print(f"Время игры: {total_time_str} секунд")
+    print(
+        f"Ваш итоговый счёт: {score_str}\nВремя игры: {total_time_str} секунд")
+    # print(f"Время игры: {total_time_str} секунд")
 
 
 def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:
