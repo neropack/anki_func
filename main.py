@@ -70,7 +70,27 @@ def start_game(words):
 
 
 def train_until_mistake(words):
-    ...
+    if not words:
+        print("Словарь пуст. Добавьте слова перед началом игры.")
+        return
+    print("Режим: игра до первой ошибки! Чтобы выйти вручную, введите СТОП")
+    word_list = list(words.keys())
+    score = 0
+    total_time = 0.0
+    while True:
+        word = random.choice(word_list)
+        exit_flag, is_correct, response_time = ask_and_check(word, words[word])
+        total_time += response_time
+        if exit_flag:
+            print("Выход из режима по запросу пользователя.")
+            break
+        if is_correct:
+            score += 1
+            print(f"Верно! Всего очков: {score} (ответ за {response_time:.2f} секунд)")
+        else:
+            print(f"Ошибка! Неверно. Правильный ответ: {words[word]}")
+            break
+    print_statistics(score, total_time)
 
 
 def add_words(words):
