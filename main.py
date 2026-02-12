@@ -36,7 +36,15 @@ def print_statistics(score, total_time):
 
 
 def ask_and_check(word, correct):
-    ...
+    print(f"Ваше слово: {word}")
+    start_time = time.time()
+    translation = input("Ваш перевод: ").strip()
+    end_time = time.time()
+    response_time = end_time - start_time
+    if translation.upper() == STOP_WORD.upper():
+        return True, False, 0.0
+    is_correct = translation.lower() == correct.lower()
+    return False, is_correct, response_time
 
 
 def start_game(words):
@@ -48,19 +56,15 @@ def start_game(words):
     total_time = 0.0
     while True:
         word = random.choice(list(words.keys()))
-        start_time = time.time()
-        translation = input(f"Ваше слово: {word}\nВаш перевод: ").strip()
-        end_time = time.time()
-        response_time = end_time - start_time
+        exit_flag, is_correct, response_time = ask_and_check(word, words[word])
         total_time += response_time
-        if translation.upper() == STOP_WORD.upper():
+        if exit_flag:
             break
-        correct_translation = words[word]
-        if translation == correct_translation:
+        if is_correct:
             print(f"Верно! Время на ответ: {response_time:.2f} секунд")
             score += 1
         else:
-            print(f"Неправильно, правильный ответ: {correct_translation} (Время на ответ: {response_time:.2f} секунд)")
+            print(f"Неправильно, правильный ответ: {words[word]} (Время на ответ: {response_time:.2f} секунд)")
     print("Спасибо за игру!")
     print_statistics(score, total_time)
 
