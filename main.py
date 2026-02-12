@@ -70,6 +70,7 @@ def start_game(words: Dict[str, str]) -> None:
     while True:
         word = random.choice(list(words.keys()))
         exit_flag, is_correct, response_time = ask_and_check(word, words[word])
+        res = response_time
         total_time += response_time
         if exit_flag:
             break
@@ -78,7 +79,7 @@ def start_game(words: Dict[str, str]) -> None:
             score += 1
         else:
             print(
-                f"Неправильно, правильный ответ: {words[word]} (Время на ответ: {response_time:.2f} секунд)")
+                f"Неправильно, ответ: {words[word]} (Время: {res:.2f} сек)")
     print("Спасибо за игру!")
     print_statistics(score, total_time)
 
@@ -104,7 +105,7 @@ def train_until_mistake(words: Dict[str, str]) -> None:
         if is_correct:
             score += 1
             print(
-                f"Верно! Всего очков: {score} (ответ за {response_time:.2f} секунд)")
+                f"Верно! Очков: {score} (ответ за {response_time:.2f} сек)")
         else:
             print(f"Ошибка! Неверно. Правильный ответ: {words[word]}")
             break
