@@ -195,7 +195,7 @@ def main() -> None:
             save_words(words, 'words.txt')
             break
         else:
-            print("Неверный выбор. Попробуйте снова.")
+            print("Неизвестный пункт меню")
 
 
 if __name__ == '__main__':
