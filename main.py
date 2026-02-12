@@ -35,7 +35,29 @@ def ask_and_check(word, correct):
 
 
 def start_game(words):
-    ...
+    if not words:
+        print("Словарь пуст. Добавьте слова перед началом игры.")
+        return
+    print("Чтобы закончить, введите СТОП")
+    score = 0
+    total_time = 0.0
+    while True:
+        word = random.choice(list(words.keys()))
+        start_time = time.time()
+        translation = input(f"Ваше слово: {word}\nВаш перевод: ").strip()
+        end_time = time.time()
+        response_time = end_time - start_time
+        total_time += response_time
+        if translation.upper() == STOP_WORD.upper():
+            break
+        correct_translation = words[word]
+        if translation == correct_translation:
+            print(f"Верно! Время на ответ: {response_time:.2f} секунд")
+            score += 1
+        else:
+            print(f"Неправильно, правильный ответ: {correct_translation} (Время на ответ: {response_time:.2f} секунд)")
+    print("Спасибо за игру!")
+    # print_statistics(score, total_time)
 
 
 def train_until_mistake(words):
