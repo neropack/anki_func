@@ -7,3 +7,4 @@
 ручка - pen
 самолёт - airplane
 машина - car
+карандаш - pencile

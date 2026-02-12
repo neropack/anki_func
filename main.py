@@ -64,11 +64,15 @@ def show_all_words(words):
 
 
 def save_words(words, filename):
-    ...
+    with open(filename, 'w', encoding='utf-8') as f:
+        for word, translation in words.items():
+            f.write(f"{word} - {translation}\n")
+    print(f"Было сохранено {len(words)} слов в файл {filename}")
 
 
 def main():
-    words = load_words('words.txt')
+    filename = os.path.join(os.path.dirname(__file__), 'words.txt')
+    words = load_words(filename)
     print(f"Было загружено {len(words)} слов из файла words.txt")
     while True:
         menu = '''Меню:
@@ -90,7 +94,7 @@ def main():
         elif menu_choice == '4':
             show_all_words(words)
         elif menu_choice == '5':
-            # save_words(words, 'words.txt')
+            save_words(words, 'words.txt')
             break
         else:
             print("Неверный выбор. Попробуйте снова.")
