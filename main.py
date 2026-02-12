@@ -20,11 +20,11 @@ def load_words(filename: str) -> Dict[str, str]:
                     continue  # пропускаем пустые строки
                 parts = line.split(',', 1)
                 if len(parts) != 2:
-                    continue  # игнорируем строки без или с лишними запятыми
+                    continue
                 word, translation = parts
-                words[word] = translation
+                words[word.strip()] = translation.strip()
     except FileNotFoundError:
-        print("Файл words.txt не найден.")
+        print(f"Файл {filename} не найден.")
         sys.exit(1)
     return words
 
@@ -33,11 +33,12 @@ def print_statistics(score: int, total_time: float) -> None:
     """
     Выводит итоговую статистику игры: счёт, общее и среднее время на ответ.
     """
-    if score == 0:
-        average = "—"
-    else:
+    if score > 0:
         average = f"{total_time / score:.2f}"
-    print(f"Итог: {score}; Время: {total_time:.2f}; Среднее: {average}")
+    else:
+        average = "—"
+    print(f"Ваш итоговый счёт: {score}")
+    print(f"Время игры: {total_time:.2f} сек (среднее время: {average} сек.)")
 
 
 def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:
