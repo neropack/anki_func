@@ -43,7 +43,15 @@ def train_until_mistake(words):
 
 
 def add_words(words):
-    ...
+    print("Чтобы закончить, введите СТОП")
+    while True:
+        word = input("Введите слово: ").strip()
+        if word.upper() == STOP_WORD.upper():
+            break
+        translation = input("Введите перевод: ").strip()
+        if translation.upper() == STOP_WORD.upper():
+            break
+        words[word] = translation
 
 
 def show_all_words(words):
