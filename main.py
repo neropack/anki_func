@@ -17,12 +17,12 @@ def load_words(filename: str) -> Dict[str, str]:
             for line in f:
                 line = line.strip()
                 if not line:
-                    continue
-                if ',' in line:
-                    parts = line.split(',', 1)
-                    if len(parts) == 2:
-                        word, translation = parts
-                        words[word.strip()] = translation.strip()
+                    continue  # пропускаем пустые строки
+                parts = line.split(',', 1)
+                if len(parts) != 2:
+                    continue  # игнорируем строки без или с лишними запятыми
+                word, translation = parts
+                words[word] = translation
     except FileNotFoundError:
         print("Файл words.txt не найден.")
         sys.exit(1)
@@ -37,9 +37,7 @@ def print_statistics(score: int, total_time: float) -> None:
         average = "—"
     else:
         average = f"{total_time / score:.2f}"
-    print(f"Ваш итоговый счёт: {score}")
-    print(
-        f"Время игры: {total_time:.2f} секунд (среднее время: {average} сек.)")
+    print(f"Итог: {score}; Время: {total_time:.2f}; Среднее: {average}")
 
 
 def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:
