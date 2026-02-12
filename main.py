@@ -37,11 +37,19 @@ def print_statistics(score: int, total_time: float) -> None:
     Выводит итоговую статистику игры: счёт, общее и среднее время на ответ.
     """
     if score > 0:
-        average = f"{total_time / score:.2f}"
+        average_time = total_time / score
+        average_time_str = f"{average_time:.2f} сек."
     else:
-        average = "—"
-    print(f"Ваш итоговый счёт: {score}")
-    print(f"Время игры: {total_time:.2f} секунд (среднее время: {average})")
+        average_time_str = "—"
+
+    total_time_str = (
+        f"{total_time:.2f} секунд" if total_time > 0 else "0.00 секунд"
+    )
+
+    score_str = str(score) if score > 0 else "—"
+
+    print(f"Ваш итоговый счёт: {score_str}")
+    print(f"Время игры: {total_time_str} (среднее время: {average_time_str})")
 
 
 def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:
