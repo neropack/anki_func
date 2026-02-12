@@ -27,7 +27,12 @@ def load_words(filename):
 
 
 def print_statistics(score, total_time):
-    ...
+    if score == 0:
+        average = "—"
+    else:
+        average = f"{total_time / score:.2f}"
+    print(f"Ваш итоговый счёт: {score}")
+    print(f"Время игры: {total_time:.2f} секунд (среднее время: {average} сек.)")
 
 
 def ask_and_check(word, correct):
@@ -57,7 +62,7 @@ def start_game(words):
         else:
             print(f"Неправильно, правильный ответ: {correct_translation} (Время на ответ: {response_time:.2f} секунд)")
     print("Спасибо за игру!")
-    # print_statistics(score, total_time)
+    print_statistics(score, total_time)
 
 
 def train_until_mistake(words):
