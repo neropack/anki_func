@@ -17,7 +17,10 @@ def load_words(filename: str) -> Dict[str, str]:
             for line in f:
                 line = line.strip()
                 if not line:
-                    continue  # пропускаем пустые строки
+                    continue
+                # Проверка наличия ровно одного запятой
+                if line.count(',') != 1:
+                    continue
                 parts = line.split(',', 1)
                 if len(parts) != 2:
                     continue
@@ -38,7 +41,7 @@ def print_statistics(score: int, total_time: float) -> None:
     else:
         average = "—"
     print(f"Ваш итоговый счёт: {score}")
-    print(f"Время игры: {total_time:.2f} сек (среднее время: {average} сек.)")
+    print(f"Время игры: {total_time:.2f} секунд (среднее время: {average})")
 
 
 def ask_and_check(word: str, correct: str) -> Tuple[bool, bool, float]:

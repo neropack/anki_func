@@ -1,10 +1,10 @@
-яблоко - apple
-кот - cat
-собака - dog
-дом - house
-птица - bird
-школа - school
-ручка - pen
-самолёт - airplane
-машина - car
-карандаш - pencile
+яблоко,apple
+кот,cat
+собака,dog
+дом,house
+птица,bird
+школа,school
+ручка,pen
+самолёт,airplane
+машина,car
+карандаш,pencil
